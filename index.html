@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panji on the Brantas — School Exhibition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Petrona:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="/src/styles.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="top">
+      <p class="mark">Group 1 - Mathematical Journey of Panji</p>
+      <nav>
+        <a href="#tales">The tales</a>
+        <a href="#map-section">The map</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Two names, one cycle</p>
+        <h1>
+          Panji looks for<br />
+          <em>Cakra Kirana</em>
+        </h1>
+        <p class="lede">
+          Before they were children’s stories, these were court romances of
+          Janggala and Kediri: a prince who leaves the river-mouth, a princess
+          who vanishes inland, and a road along the Brantas that still exists
+          under another name.
+        </p>
+        <p class="hero-note">
+          Ande-Ande Lumut is the same search, told as a riddle at the door.
+        </p>
+      </section>
+
+      <section id="tales" class="tales">
+        <article class="tale">
+          <header>
+            <span>01</span>
+            <h2>Ande-Ande Lumut</h2>
+          </header>
+          <p>
+            A widow in a village on the Brantas has four daughters. Three of
+            them are loud with their own importance. The youngest, Klenting
+            Kuning, keeps the hearth and takes the blows. When a handsome
+            stranger called Ande-Ande Lumut sends word that he will marry the
+            girl who can reach his house, the elder sisters set out dressed for
+            a wedding. Klenting Kuning is told to stay and pound rice.
+          </p>
+          <p>
+            A river blocks the road. Yuyu Kangkang, a giant crab, offers a
+            crossing for a kiss. The three sisters pay. Their faces come up
+            streaked with mud. Klenting Kuning, when she finally follows,
+            refuses. She finds another way, arrives with clean feet, and is the
+            only one Ande-Ande Lumut will receive.
+          </p>
+          <blockquote>
+            The poor man at the gate is Panji Asmarabangun in disguise. The
+            girl with the mortar is Cakra Kirana, who has also been living
+            under another name. The test is not beauty. It is whether she will
+            sell herself to cross.
+          </blockquote>
+        </article>
+
+        <article class="tale">
+          <header>
+            <span>02</span>
+            <h2>Panji’s search</h2>
+          </header>
+          <p>
+            In the older court version the lovers are already promised:
+            Raden Inu Kertapati of Jenggala to Dewi Sekartaji of Daha, who is
+            also called Cakra Kirana. War, a storm, or a jealous kinsman
+            pulls them apart. Panji does not wait in the palace. He puts on a
+            commoner’s name and walks.
+          </p>
+          <p>
+            The walk is not a fantasy geography. Jenggala sat on the eastern
+            delta — its harbour, Hujung Galuh, is the old city of Surabaya.
+            Kediri, the kingdom of Panjalu, sat upriver at Daha. Between them
+            the Brantas makes a corridor through what are now Sidoarjo,
+            Mojokerto, Jombang and Nganjuk. Those towns are later names for
+            the same valley courts a 12th-century party would have had to
+            pass.
+          </p>
+          <blockquote>
+            He is looking for a person, not a throne. Each court is a question:
+            has she been here, and what did it cost to come this far?
+          </blockquote>
+        </article>
+      </section>
+
+      <section id="map-section" class="map-block">
+        <div class="map-copy">
+          <p class="eyebrow">See his journey for yourself?</p>
+          <h2>The road to Candra Kirana</h2>
+          <p>
+            Pins sit on present civic centres that occupy the historic ground.
+            Each dashed line is a real road along the Brantas corridor; the
+            number is driving distance in kilometres. Choose a start and an
+            end. The map then runs Dijkstra’s algorithm — it settles the
+            nearest unvisited court, relaxes every road out of it, and keeps
+            the cheapest way it has seen — until it holds the shortest path.
+          </p>
+
+          <div class="controls">
+            <label>
+              Start
+              <select id="start"></select>
+            </label>
+            <button type="button" id="swap" class="ghost" title="Swap courts">
+              ⇄
+            </button>
+            <label>
+              End
+              <select id="end"></select>
+            </label>
+            <button type="button" id="find" class="solid">Find the shortest path</button>
+            <button type="button" id="reset" class="ghost">Reset</button>
+          </div>
+
+          <p id="pick-hint" class="hint">
+            Tap a court on the map to choose a start, then another for the end.
+          </p>
+
+          <div class="view-row">
+            <button type="button" id="view-java" class="ghost">Whole of Java</button>
+            <button type="button" id="view-route" class="ghost">Brantas corridor</button>
+          </div>
+
+          <div id="result" class="result" hidden></div>
+
+          <ul class="legend">
+            <li><i class="lg start"></i> Start</li>
+            <li><i class="lg end"></i> End</li>
+            <li><i class="lg road"></i> Road, with cost in km</li>
+            <li><i class="lg path"></i> Shortest path</li>
+          </ul>
+        </div>
+
+        <div class="map-frame">
+          <div id="map" role="application" aria-label="Map of Java with Panji’s courts"></div>
+          <p class="map-caption">
+            Land outline from BAKOSURTANAL provincial boundaries. Coastline of
+            the Brantas delta has shifted since the 12th century; the pins
+            mark the towns that stand on those sites now.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>
+        Distances are contemporary driving kilometres on the same valley roads.
+        A walking day is taken as 25 km — a court courier would have been
+        faster; a full retinue, slower.
+      </p>
+      <p class="fine"><span id="year"></span> · Made by: Fisien - Frederica - Joel - Patricia - Ratu - Reizo</p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
